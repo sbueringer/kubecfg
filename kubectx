@@ -35,6 +35,7 @@ KUBECTX="${HOME}/.kube/kubectx"
 usage() {
   cat <<"EOF"
 USAGE:
+  kubectx current           : show current context
   kubectx                   : list the contexts
   kubectx <NAME>            : switch to context <NAME>
   kubectx -                 : switch to the previous context
@@ -131,6 +132,8 @@ main() {
   elif [[ "$#" -eq 1 ]]; then
     if [[ "${1}" == "-" ]]; then
       swap_context
+    elif [[ "${1}" == "current" ]]; then
+      current_context
     elif [[ "${1}" == '-h' || "${1}" == '--help' ]]; then
       usage
     elif [[ "${1}" =~ ^-(.*) ]]; then

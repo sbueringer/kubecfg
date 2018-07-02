@@ -15,6 +15,7 @@ mkdir -p $KUBECONFIG_DIR
 usage() {
   cat <<"EOF"
 USAGE:
+  kubecfg current           : show current config
   kubecfg                   : list the config
   kubecfg <NAME>            : switch to config <NAME>
   kubecfg -h,--help         : show this message
@@ -61,7 +62,9 @@ main() {
     echo "error: too many flags" >&2
     usage
   elif [[ "$#" -eq 1 ]]; then
-    if [[ "${1}" == '-h' || "${1}" == '--help' ]]; then
+    if [[ "${1}" == "current" ]]; then
+      read_config
+    elif [[ "${1}" == '-h' || "${1}" == '--help' ]]; then
       usage
     elif [[ "${1}" =~ ^-(.*) ]]; then
       echo "error: unrecognized flag \"${1}\"" >&2

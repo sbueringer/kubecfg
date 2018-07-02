@@ -35,6 +35,7 @@ KUBENS_DIR="${HOME}/.kube/kubens"
 usage() {
   cat <<"EOF"
 USAGE:
+  kubens current            : show current namespace
   kubens                    : list the namespaces in the current context
   kubens <NAME>             : change the active namespace of current context
   kubens -                  : switch to the previous namespace in this context
@@ -129,6 +130,8 @@ main() {
       usage
     elif [[ "${1}" == "-" ]]; then
       swap_namespace
+    elif [[ "${1}" == "current" ]]; then
+      current_namespace
     elif [[ "${1}" =~ ^-(.*) ]]; then
       echo "error: unrecognized flag \"${1}\"" >&2
       usage
